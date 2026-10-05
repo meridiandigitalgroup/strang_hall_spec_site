@@ -1,0 +1,260 @@
+<!doctype html>
+<!--
+  SPEC DESIGN CONCEPT for Strang Hall (Overland Park, KS).
+  Built from publicly available business information. Not the official website.
+  All design and code remain the property of the author until payment is received in full.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strang Hall | Five kitchens under one roof</title>
+<meta name="description" content="Strang Hall is a food hall of five chef-driven restaurants in historic Overland Park, with a full bar and a lawn out back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --steel:#23272a;
+    --steel-2:#2e3337;
+    --concrete:#e7e5df;
+    --concrete-2:#d8d5cd;
+    --bulb:#f4b942;
+    --lawn:#5f7f2e;
+    --lawn-deep:#3f5a1d;
+    --ink:#1b1e20;
+    --display:"Big Shoulders Display","Arial Narrow",sans-serif;
+    --body:"Figtree",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--concrete);color:var(--ink);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--bulb);outline-offset:3px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+  /* nav */
+  header.nav{position:absolute;top:0;left:0;right:0;z-index:5;color:var(--concrete)}
+  header.nav .wrap{display:flex;justify-content:space-between;align-items:center;height:76px}
+  .logo{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:.02em;text-decoration:none}
+  .nav ul{display:flex;gap:28px;list-style:none;font-weight:500;font-size:15px}
+  .nav a{text-decoration:none;opacity:.85}
+  .nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--bulb)}
+  @media(max-width:720px){.nav ul li:not(:last-child){display:none}}
+
+  /* hero */
+  .hero{background:var(--steel);color:var(--concrete);position:relative;overflow:hidden;
+    background-image:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 120px),
+      linear-gradient(180deg,#1d2022 0%,var(--steel) 60%);
+    padding:190px 0 0}
+  .lights{position:absolute;top:56px;left:0;width:100%;height:150px;pointer-events:none}
+  .lights path{fill:none;stroke:#0e1011;stroke-width:2}
+  .bulb{fill:#4a4331;opacity:1}
+  .bulb.on{animation:glow .6s forwards}
+  @keyframes glow{to{fill:var(--bulb);filter:drop-shadow(0 0 7px rgba(244,185,66,.9)) drop-shadow(0 0 18px rgba(244,185,66,.5))}}
+  .hero h1{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.82;
+    font-size:clamp(88px,22vw,300px);letter-spacing:-.01em;margin-left:-.04em}
+  .hero h1 span{display:block}
+  .hero h1 span+span{color:transparent;-webkit-text-stroke:2px var(--concrete)}
+  .hero-foot{display:flex;flex-wrap:wrap;gap:28px 56px;align-items:flex-end;justify-content:space-between;padding:44px 0 56px}
+  .hero-foot p{max-width:34ch;font-size:19px;color:#c9c6bd}
+  .btns{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 26px;font-weight:600;text-decoration:none;border:2px solid var(--bulb);font-size:16px;transition:background .15s,color .15s}
+  .btn.solid{background:var(--bulb);color:var(--ink)}
+  .btn.solid:hover{background:transparent;color:var(--bulb)}
+  .btn.line{color:var(--bulb)}
+  .btn.line:hover{background:var(--bulb);color:var(--ink)}
+  .ticker{background:var(--bulb);color:var(--ink);font-family:var(--display);font-weight:800;font-size:22px;white-space:nowrap;overflow:hidden;padding:10px 0;letter-spacing:.03em}
+  .ticker div{display:inline-block;padding-left:100%;animation:slide 38s linear infinite}
+  @keyframes slide{to{transform:translateX(-100%)}}
+
+  /* sections */
+  section{padding:100px 0}
+  h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(46px,8vw,96px);margin-bottom:28px}
+  .lead{font-size:20px;max-width:56ch}
+
+  .kitchens .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start}
+  .kitchens .lead{margin-bottom:20px}
+  .stalls{list-style:none;border-top:3px solid var(--ink)}
+  .stalls li{display:flex;justify-content:space-between;gap:20px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--concrete-2);border-bottom-color:#b9b6ad}
+  .stalls strong{font-family:var(--display);font-size:32px;text-transform:uppercase;line-height:1}
+  .stalls span{color:#4b4f52;text-align:right;max-width:26ch;font-size:15px}
+  @media(max-width:860px){.kitchens .grid{grid-template-columns:1fr;gap:36px}}
+
+  .bar{background:var(--steel);color:var(--concrete)}
+  .bar .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .bar p{color:#c9c6bd;font-size:19px;max-width:44ch;margin-bottom:18px}
+  .tap{aspect-ratio:1;max-width:420px;justify-self:center;width:100%;border:2px solid var(--steel-2);border-radius:50%;display:grid;place-items:center;position:relative;
+    background:radial-gradient(circle at 50% 40%,rgba(244,185,66,.18),transparent 62%)}
+  .tap::before{content:"";position:absolute;inset:18px;border:1px dashed #555c61;border-radius:50%}
+  .tap div{text-align:center;font-family:var(--display);text-transform:uppercase;font-weight:800;line-height:.95}
+  .tap b{display:block;font-size:clamp(60px,12vw,110px);color:var(--bulb)}
+  .tap em{font-style:normal;font-size:clamp(24px,4vw,34px)}
+  @media(max-width:860px){.bar .grid{grid-template-columns:1fr}}
+
+  .lawn{background:var(--lawn);color:#f6f4ec;position:relative;overflow:hidden}
+  .lawn::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.06) 0 22px,transparent 22px 44px)}
+  .lawn .wrap{position:relative;z-index:1}
+  .lawn h2{color:#fff}
+  .lawn .lead{color:#eef0e0}
+  .lawn .note{margin-top:30px;display:inline-block;background:var(--lawn-deep);padding:14px 20px;font-weight:600}
+
+  .visit .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px}
+  dl{border-top:3px solid var(--ink)}
+  dl div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid #b9b6ad}
+  dt{font-weight:600;color:#4b4f52}
+  dd a{text-underline-offset:4px}
+  .events{background:var(--steel);color:var(--concrete);padding:36px;align-self:start}
+  .events h3{font-family:var(--display);text-transform:uppercase;font-size:44px;line-height:1;margin-bottom:12px}
+  .events p{color:#c9c6bd;margin-bottom:22px}
+  @media(max-width:860px){.visit .grid{grid-template-columns:1fr;gap:40px}dl div{grid-template-columns:1fr;gap:2px}}
+
+  footer{background:var(--ink);color:#aaa79e;padding:44px 0;font-size:15px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center}
+  footer ul{display:flex;gap:22px;list-style:none}
+  footer a{text-decoration:none}
+  footer a:hover{color:var(--bulb)}
+  .spec{width:100%;font-size:13px;color:#7d7b74;border-top:1px solid #34383b;padding-top:20px}
+
+  @media(prefers-reduced-motion:reduce){
+    .bulb{fill:var(--bulb);filter:drop-shadow(0 0 7px rgba(244,185,66,.8))}
+    .bulb.on{animation:none}
+    .ticker div{animation:none;padding-left:0}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">STRANG HALL</a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#kitchens">Kitchens</a></li>
+      <li><a href="#bar">Bar</a></li>
+      <li><a href="#lawn">The lawn</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <svg class="lights" id="lights" aria-hidden="true"></svg>
+    <div class="wrap">
+      <h1><span>Strang</span><span>Hall</span></h1>
+      <div class="hero-foot">
+        <p>Five chef-driven restaurants under one roof, in the heart of historic Overland Park.</p>
+        <div class="btns">
+          <a class="btn solid" href="#visit">Plan your visit</a>
+          <a class="btn line" href="https://www.google.com/maps/dir/?api=1&destination=7313+W+80th+St,+Overland+Park,+KS+66204">Get directions</a>
+        </div>
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true"><div>Five kitchens &nbsp;/&nbsp; Full bar &nbsp;/&nbsp; Happy hour food &nbsp;/&nbsp; Lawn seating &nbsp;/&nbsp; No reservations needed &nbsp;/&nbsp; Five kitchens &nbsp;/&nbsp; Full bar &nbsp;/&nbsp; Happy hour food &nbsp;/&nbsp; Lawn seating &nbsp;/&nbsp; No reservations needed</div></div>
+  </div>
+
+  <section class="kitchens" id="kitchens">
+    <div class="wrap grid">
+      <div>
+        <h2>Five kitchens.<br>One table.</h2>
+        <p class="lead">Each chef cooks original, authentic food you can't find anywhere else in town. Order from one counter or all five, then sit together.</p>
+        <p class="lead">Nobody has to agree on dinner.</p>
+      </div>
+      <ul class="stalls">
+        <li><strong>Pizza</strong><span>Pick up to three toppings for your own</span></li>
+        <li><strong>Salads</strong><span>Build it from several options</span></li>
+        <li><strong>Chef-driven plates</strong><span>Original dishes from our resident chefs</span></li>
+        <li><strong>Happy hour food</strong><span>Food to go with your drink, served at happy hour</span></li>
+        <li><strong>Order online</strong><span>Skip the wait and pick up your food</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bar" id="bar">
+    <div class="wrap grid">
+      <div>
+        <h2>Great<br>cocktails</h2>
+        <p>The bar is a main attraction. Meet before dinner, stay after, and bring a drink to your table or out to the lawn.</p>
+        <p>Happy hour comes with food, too.</p>
+        <div class="btns" style="margin-top:28px"><a class="btn line" href="https://stranghall.com/">See the menu</a></div>
+      </div>
+      <div class="tap" aria-hidden="true"><div><b>45&nbsp;min</b><em>to 2½ hours is how long guests usually stay</em></div></div>
+    </div>
+  </section>
+
+  <section class="lawn" id="lawn">
+    <div class="wrap">
+      <h2>Take it<br>outside</h2>
+      <p class="lead">Past the brick and steel, outdoor tables sit on a grassy lawn. Bring friends, bring kids, and stay while the sun goes down.</p>
+      <p class="note">No reservations. Walk in and find a table.</p>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap grid">
+      <div>
+        <h2>Come hungry</h2>
+        <dl>
+          <div><dt>Address</dt><dd><a href="https://www.google.com/maps/dir/?api=1&destination=7313+W+80th+St,+Overland+Park,+KS+66204">7313 W 80th St<br>Overland Park, KS 66204</a></dd></div>
+          <div><dt>Hours</dt><dd>Open until 9 PM on Mondays. <a href="https://www.google.com/search?q=strang+hall+hours">See every day's hours</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+19137017041">(913) 701-7041</a></dd></div>
+          <div><dt>Seating</dt><dd>First come, first seated. We don't take reservations.</dd></div>
+        </dl>
+      </div>
+      <div class="events">
+        <h3>Booking a party?</h3>
+        <p>Request a group or private event and our team will follow up.</p>
+        <a class="btn solid" href="https://stranghallks.tripleseat.com/party_request/43665">Request an event</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" style="color:var(--concrete)">STRANG HALL</a>
+    <ul>
+      <li><a href="https://www.instagram.com/stranghall">Instagram</a></li>
+      <li><a href="https://www.facebook.com/2191862161054855">Facebook</a></li>
+      <li><a href="https://www.tiktok.com/@stranghall">TikTok</a></li>
+      <li><a href="https://twitter.com/stranghall">X</a></li>
+    </ul>
+    <p class="spec">Design concept built from public information about Strang Hall. Not the official website.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var svg=document.getElementById('lights');
+  function draw(){
+    var w=svg.clientWidth||window.innerWidth, h=150;
+    svg.setAttribute('viewBox','0 0 '+w+' '+h);
+    var sag=70, y0=10;
+    var p='M0,'+y0+' Q'+(w/2)+','+(y0+sag*2)+' '+w+','+y0;
+    var n=Math.max(8,Math.round(w/70));
+    var out='<path d="'+p+'"/>';
+    for(var i=1;i<n;i++){
+      var t=i/n, x=2*(1-t)*t*(w/2)+t*t*w;
+      var y=(1-t)*(1-t)*y0+2*(1-t)*t*(y0+sag*2)+t*t*y0;
+      out+='<line x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="'+(y+10)+'" stroke="#0e1011" stroke-width="2"/>'
+         +'<circle class="bulb" data-i="'+i+'" cx="'+x+'" cy="'+(y+19)+'" r="8"/>';
+    }
+    svg.innerHTML=out;
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    svg.querySelectorAll('.bulb').forEach(function(b,k){
+      if(reduce)return;
+      setTimeout(function(){b.classList.add('on')},350+k*110);
+    });
+  }
+  draw();
+  var last=window.innerWidth;
+  window.addEventListener('resize',function(){
+    if(Math.abs(window.innerWidth-last)>40){last=window.innerWidth;draw()}
+  });
+})();
+</script>
+</body>
+</html>
